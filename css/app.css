@@ -1,0 +1,35 @@
+body {
+	font-family: Arial;
+	font-size: 14px;
+}
+
+p {
+	margin: 10px 0;
+	padding: 0;
+}
+
+.none {
+	display: none;
+}
+
+.comment__item {
+	margin-bottom: 20px;
+}
+
+.news__author {
+  color: #666;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.news__author span:first-child {
+	border-left: 3px solid #42a2e4;
+	padding-left: 10px;
+}
+
+.news__text {
+	margin-left: 20px;
+	font-style: italic;
+}
+
+

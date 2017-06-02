@@ -9,6 +9,7 @@
   "author": "Andrey Kovalev",
   "license": "MIT",
   "devDependencies": {
+    "classnames": "^2.2.5",
     "express": "^4.15.3"
   }
 }
