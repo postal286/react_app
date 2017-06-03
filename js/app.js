@@ -1,16 +1,16 @@
 var my_news = [
-  {
-    author: 'Саша Печкин',
-    text: 'В четверг, четвертого числа...'
-  },
-  {
-    author: 'Просто Вася',
-    text: 'Считаю, что $ должен стоить 35 рублей!'
-  },
-  {
-    author: 'Гость',
-    text: 'Бесплатно. Скачать. Лучший сайт - http://localhost:3000'
-  }
+	{
+		author: 'Саша Печкин',
+		text: 'В четверг, четвертого числа...'
+	},
+	{
+		author: 'Просто Вася',
+		text: 'Считаю, что $ должен стоить 35 рублей!'
+	},
+	{
+		author: 'Гость',
+		text: 'Бесплатно. Скачать. Лучший сайт - http://localhost:3000'
+	}
 ];
 
 var News = React.createClass({
@@ -23,12 +23,12 @@ var News = React.createClass({
 			newsTemplate = data.map(function(item, index) {
 				return (
 					<div key={index}>
-	          <Article data={item} />
-	        </div>
-				);
+						<Article data={item} />
+					</div>
+					);
 			});
 		} else {
-			newsTemplate = 'Извините, но новостей пока нетю'
+			newsTemplate = 'Извините, но новостей пока нет.'
 		}
 
 		return (
@@ -38,37 +38,37 @@ var News = React.createClass({
 					<strong className={data.length > 0 ? '' : 'none'}>Всего новостей: {data.length}</strong>
 				</p>
 			</div>
-		);
+			);
 	}
 });
 
 var Article = React.createClass({
 	render: function (){
 
-	var author = this.props.data.author;
-	var text = this.props.data.text;
+		var author = this.props.data.author,
+				text = this.props.data.text;
 
 		return (
-			<div className='comment__item'>
+			<div className="article">
 				<p className="news__author">{author}:</p>
-	      <p className="news__text">{text}</p>
-      </div>
+				<p className="news__text">{text}</p>
+			</div>
 		);
 	}
 });
 
 var App = React.createClass({
-  render: function() {
-    return (
-      <div className="app">
-        Всем привет, я компонент App! Я умею отображать новости.
-				<News data={my_news} /> {/*добавили свойство data */}
-      </div>
-    );
-  }
+	render: function() {
+		return (
+			<div className="app">
+			<h3>Новости</h3>
+			<News data={my_news} /> {/*добавили свойство data */}
+		</div>
+		);
+	}
 });
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+	<App />,
+	document.getElementById('root')
 );

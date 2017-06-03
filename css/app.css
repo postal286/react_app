@@ -3,6 +3,13 @@ body {
 	font-size: 14px;
 }
 
+h3 {
+	color: #42a2e4;
+	font-size: 24px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
 p {
 	margin: 10px 0;
 	padding: 0;
@@ -12,7 +19,7 @@ p {
 	display: none;
 }
 
-.comment__item {
+.article {
 	margin-bottom: 20px;
 }
 
