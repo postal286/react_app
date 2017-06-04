@@ -23,6 +23,10 @@ p {
 	margin-bottom: 20px;
 }
 
+.news {
+  width: 800px;
+}
+
 .news__author {
   color: #666;
   font-size: 15px;
@@ -37,6 +41,34 @@ p {
 .news__text {
 	margin-left: 20px;
 	font-style: italic;
+}
+
+.news__big-text {
+	margin-left: 20px;
+}
+
+.news__count {
+	color: #42a2e4;
+	font-size: 13px;
+	text-transform: uppercase;
+}
+
+.form-submit {
+	margin-bottom: 15px;
+}
+
+.test-input,
+.test-input-button {
+	padding: 10px;
+	color: #333;
+	margin-left: 20px;
+	border-radius: 5px;
+	background-color: #fff;
+	border: 1px solid grey;
+}
+
+.test-input-button {
+	color: #666;
 }
 
 
