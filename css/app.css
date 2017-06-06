@@ -71,4 +71,23 @@ p {
 	color: #666;
 }
 
+.add__author, .add__text, .add__checkrule, .add__btn {
+	display: block;
+	padding: 10px;
+	margin: 15px;
+}
+
+.add__btn {
+  box-sizing: content-box;
+  color: #FFF;
+  border-radius: 5px;
+  border: none;
+  text-transform: uppercase;
+  background: #007DDC;
+}
+
+.add__btn:disabled {
+  background: #CCC;
+  color: #999;
+}
 
