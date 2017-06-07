@@ -71,7 +71,7 @@ p {
 	color: #666;
 }
 
-.add__author, .add__text, .add__checkrule, .add__btn {
+.add__author, .add__text, .add__big-text, .add__checkrule, .add__btn {
 	display: block;
 	padding: 10px;
 	margin: 15px;

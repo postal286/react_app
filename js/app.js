@@ -16,6 +16,8 @@ var myNews = [
   }
 ];
 
+window.ee = new EventEmitter();
+
 var News = React.createClass({
 	propTypes: {
 		data: React.PropTypes.array.isRequired
@@ -106,8 +108,9 @@ var Add = React.createClass({
 	getInitialState: function() {
 		return ({
 			agreeNotChecked: true,
+	    bigTextIsEmpty: true,
 	    authorIsEmpty: true,
-	    textIsEmpty: true
+	    textIsEmpty: true,
 		});
 	},
 
@@ -115,17 +118,35 @@ var Add = React.createClass({
     ReactDOM.findDOMNode(this.refs.author).focus();
   },
 
-	onBtnClickHandler: function (e) {
-		e.preventDefault();
-		if (e.target.checked) {
-			this.setState({
-				agreeNotChecked: false
-			});
-		} else {
-			this.setState({
-				agreeNotChecked: true
-			});
-		}
+  onBtnClickHandler: function (e) {
+  	e.preventDefault();
+  	var textEl = ReactDOM.findDOMNode(this.refs.text),
+  			text = textEl.value,
+  			author = ReactDOM.findDOMNode(this.refs.author).value,
+  			bigTextEl = ReactDOM.findDOMNode(this.refs.bigText),
+  			bigText = bigTextEl.value;
+
+  	var item = [{
+  		author: author,
+  		text: text,
+  		bigText: bigText
+  	}];
+
+  	window.ee.emit('News.add', item);
+
+  	textEl.value = '';
+  	bigTextEl.value = '';
+
+  	console.log(text);
+
+  	this.setState({
+  		textIsEmpty: true,
+  		bigTextIsEmpty: true
+  	});
+  },
+
+	onCheckRuleClick: function () {
+		this.setState({agreeNotChecked: !this.state.agreeNotChecked});
 	},
 
 	onAuthorChange: function (e) {
@@ -152,7 +173,25 @@ var Add = React.createClass({
 		}
 	},
 
+	onBigTextChange: function (e){
+		if (e.target.value.trim().length > 0) {
+			this.setState({
+				bigTextIsEmpty: false
+			});
+		} else {
+			this.setState({
+				bigTextIsEmpty: true
+			});
+		}
+	},
+
 	render: function () {
+
+		var agreeNotChecked = this.state.agreeNotChecked,
+				bigTextIsEmpty = this.state.bigTextIsEmpty,
+				authorIsEmpty = this.state.authorIsEmpty,
+				textIsEmpty = this.state.textIsEmpty;
+
 		return (
       <form className='add cf'>
         <input
@@ -166,9 +205,17 @@ var Add = React.createClass({
         <textarea
           className='add__text'
           defaultValue=''
-          placeholder='Текст новости'
+          placeholder='Текст превью новости'
           ref='text'
           onChange={this.onTextChange}
+        >
+        </textarea>
+        <textarea
+          className='add__big-text'
+          defaultValue=''
+          placeholder='Текст новости'
+          ref='bigText'
+          onChange={this.onBigTextChange}
         >
         </textarea>
         <label className='add__checkrule'>
@@ -178,8 +225,8 @@ var Add = React.createClass({
           className='add__btn'
           onClick={this.onBtnClickHandler}
           ref='alert_button'
-          disabled={!this.state.agreeNotChecked && !this.state.authorIsEmpty && !this.state.textIsEmpty}>
-          Показать alert
+          disabled={agreeNotChecked || authorIsEmpty || textIsEmpty || bigTextIsEmpty}>
+          Добавить новость
         </button>
       </form>
     );
@@ -189,12 +236,31 @@ var Add = React.createClass({
 
 
 var App = React.createClass({
+
+	getInitialState: function () {
+		return ({
+			news: myNews
+		});
+	},
+
+	componentDidMount: function () {
+		var self = this;
+		window.ee.addListener('News.add', function(item) {
+			var nextNews = item.concat(self.state.news);
+			self.setState({news: nextNews});
+		});
+	},
+
+	componentWillUnmount: function () {
+		window.ee.removeListener('News.add');
+	},
+
 	render: function() {
 		return (
 			<div className='app'>
 				<Add />
 				<h3>Новости</h3>
-				<News data={myNews} />
+				<News data={this.state.news} />
 			</div>
 		);
 	}
